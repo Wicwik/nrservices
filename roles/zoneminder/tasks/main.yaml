@@ -8,10 +8,10 @@
     - "{{ zm_events_dir }}"
     - "{{ zm_logs_dir }}"
 
-- name: Deploy ZoneMinder docker-compose.yml
+- name: Deploy ZoneMinder docker-compose.yaml
   template:
-    src: docker-compose.yml.j2
-    dest: "{{ zm_config_dir }}/docker-compose.yml"
+    src: docker-compose.yaml.j2
+    dest: "{{ zm_config_dir }}/docker-compose.yaml"
     mode: '0644'
 
 - name: Start librephotos container with Docker Compose
