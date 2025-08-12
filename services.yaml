@@ -11,4 +11,5 @@
   tasks:
   roles:
     - common
+    - frigate
     

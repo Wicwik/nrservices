@@ -1,0 +1,38 @@
+- name: Create frigate config directory
+  file:
+    path: "{{ frigate_config_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Find a field labeled username in an item named librephotos-db in a specific vault
+  onepassword.connect.item_info:
+    token: "{{ connect_token }}"
+    item: frigate-rstp
+    vault: "{{ ansible_vault }}"
+  no_log: false  
+  register: op_item
+
+- name: Setting facts so that they will be persisted in the fact cache
+  ansible.builtin.set_fact:
+    frigate_rstp_password: "{{ op_item.op_item.fields.password.value }}"
+
+- name: Copy frigate .env config
+  template:
+    src: frigate.env.j2
+    dest: "{{ frigate_config_dir }}/.env"
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Copy Docker Compose file
+  copy:
+    src: docker-compose.yaml
+    dest: "{{ frigate_config_dir }}/docker-compose.yaml"
+    mode: '0644'
+
+- name: Start frigate container with Docker Compose
+  community.docker.docker_compose_v2:
+    project_src: "{{ frigate_config_dir }}"
+    state: present
