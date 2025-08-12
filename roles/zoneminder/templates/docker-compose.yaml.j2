@@ -1,0 +1,11 @@
+services:
+  zoneminder:
+    image: {{ zm_docker_image }}
+    container_name: zoneminder
+    restart: unless-stopped
+    ports:
+      - "{{ zm_http_port }}:80"
+    volumes:
+      - {{ zm_config_dir }}:/config
+      - {{ zm_events_dir }}:/var/cache/zoneminder/events
+      - {{ zm_logs_dir }}:/var/cache/zoneminder/logs

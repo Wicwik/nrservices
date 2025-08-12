@@ -1,0 +1,5 @@
+zm_docker_image: "dlandon/zoneminder:latest"
+zm_http_port: 8080
+zm_config_dir: "/opt/zoneminder/config"
+zm_events_dir: "/opt/zoneminder/events"
+zm_logs_dir: "/opt/zoneminder/logs"
