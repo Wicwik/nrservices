@@ -11,5 +11,5 @@
   tasks:
   roles:
     - common
-    - frigate
+    - zoneminder
     
